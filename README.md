@@ -25,8 +25,8 @@ The following variables can be overridden:
 * `graylog2_transport_email_from_email`: Default: "graylog@example.com"
 * `graylog2_transport_email_web_interface_url`: Default: "http://{{ansible_default_ipv4.address}}:9000"
 
-* `graylog2_password_secret`: Default: "AU43aOqqswYJJyQSICrF8UzpQ2D3Q9YY5pzA6Gw2oZIdQqoR2Fibr2GnTcwRuneVfejp4qzgAcHOv0Ode64dL9BkzptsLmGE"
-   generate: pwgen -s 96 1
+* `graylog2_password_secret`: Default: "AU43aOqqswYJJyQSICrF8UzpQ2D3Q9YY5pzA6Gw2oZIdQqoR2Fibr2GnTcwRuneVfejp4qzgAcHOv0Ode64dL9BkzptsLmGE"   
+   generate: `pwgen -s 96 1`   
 
 * `graylog2_repo_graylog_rpm`: Default: https://packages.graylog2.org/repo/packages/graylog-2.2-repository_latest.rpm
 
@@ -41,14 +41,14 @@ The following variables can be overridden:
 * Automatic restart of graylog service if config file has changed
 
 When you first login, define Inputs:
-System/Inputs > Inputs > Syslog UDP 
-  "launch new input"
-    [x] Global
-    Title: Unix Syslog
-    Port: 1514
-    "Save"
+System/Inputs > Inputs > Syslog UDP   
+  "launch new input"   
+    [x] Global   
+    Title: Unix Syslog   
+    Port: 1514   
+    "Save"   
 
-Now you can send syslog via UDP to Port 1514.
+Now you can send syslog via UDP to Port 1514.   
 
 # example playbooks for this role are located in `test` folder:
 * `playbook_graylog2.yml`: Real life example with firewalld configuration
