@@ -1,4 +1,8 @@
 # js.graylog2/README.md
+This role installs and configure graylog2 single server.   
+It has no depencies and is easy to handle.   
+Use files in test directory to get started with this role.   
+
 
 ## Execution Requirements
 - Tested on CentOS 7
