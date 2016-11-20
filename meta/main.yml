@@ -2,7 +2,7 @@
 galaxy_info:
   author: Chris Ruettimann
   company: Bitbull Consulting
-  description: installation and configuration of mariadb (mysql)
+  description: Install graylog2 and configure single server instance on CentOS 7 server
   min_ansible_version: 1.7
   license: GPL
   platforms:
@@ -11,6 +11,7 @@ galaxy_info:
     - 7
   categories:
   - system
-  - database
+  - syslog
+  - graylog
 
 dependencies: []
