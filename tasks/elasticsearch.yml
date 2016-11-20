@@ -1,0 +1,24 @@
+---
+- name: Install elasticsearch
+  yum:
+    name: elasticsearch
+    state: installed
+
+- name: configure elastic search cluster name
+  replace: 
+    dest: /etc/elasticsearch/elasticsearch.yml
+    regexp: '.*cluster.name: .*' 
+    replace: 'cluster.name: {{graylog2_cluster_name}}' 
+
+- name: configure elasticsearch hostname
+  replace: 
+    dest: /etc/elasticsearch/elasticsearch.yml
+    regexp: '.*network.host: .*' 
+    replace: 'network.host: localhost' 
+
+- name: Enable and start elasticsearch
+  service:
+    name: elasticsearch
+    state: started
+    enabled: yes
+...

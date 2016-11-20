@@ -1,0 +1,12 @@
+---
+- name: Install MongoDB
+  yum:
+    name: mongodb-org
+    state: installed
+
+- name: Enable and start mongod
+  service:
+    name: mongod
+    state: started
+    enabled: yes
+...

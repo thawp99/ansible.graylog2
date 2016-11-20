@@ -1,0 +1,36 @@
+---
+- name: Install EPEL Release
+  yum:
+    name: epel-release
+    state: installed
+
+- name: check graylog repo
+  shell: "rpm -qa | grep graylog | grep repository || true"
+  args:
+    warn: no
+  no_log: True
+  register: graylog_repo_query
+  changed_when: "graylog_repo_query.rc != 0"
+
+- name: Install Graylog Repositry
+  yum:
+    name: "{{graylog2_repo_graylog_rpm}}"
+    state: installed
+  when: graylog_repo_query.stdout.find('graylog') != 0
+
+- name: Configure stable MongoDB repo
+  template: 
+    src: elasticsearch.repo.j2
+    dest: /etc/yum.repos.d/elasticsearch.repo
+    owner: root 
+    group: root 
+    mode: 0644
+
+- name: Configure stable MongoDB repo
+  template: 
+    src: mongodb-org.repo.j2 
+    dest: /etc/yum.repos.d/mongodb-org.repo
+    owner: root 
+    group: root 
+    mode: 0644
+...

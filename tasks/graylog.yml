@@ -1,0 +1,192 @@
+---
+- name: Install graylog
+  yum:
+    name: graylog-server
+    state: installed
+
+- name: Register md5sum of /etc/graylog/server/server.conf
+  shell: md5sum /etc/graylog/server/server.conf
+  register: graylog2_conf_md5sum_before
+  changed_when: false
+
+- name: Generate admin password sha2 hash
+  shell: "echo -n {{ graylog2_admin_password }} | sha256sum | awk '{print $1}'"
+  register: graylog2_admin_password_sha
+  changed_when: false
+
+- name: diff current and needed password hash
+  shell: grep ^root_password_sha2 /etc/graylog/server/server.conf | grep "{{ graylog2_admin_password_sha.stdout }}" || true
+  register: graylog2_admin_password_diff
+  changed_when: false
+
+- name: Configure Graylog2 admin password if needed
+  replace: 
+    dest: /etc/graylog/server/server.conf
+    regexp: 'root_password_sha2.*' 
+    replace: 'root_password_sha2 = {{ graylog2_admin_password_sha.stdout }}'
+  when: graylog2_admin_password_diff.stdout.find('root_password_sha2') != 0
+
+- name: Configure Graylog2 password salt
+  replace: 
+    dest: /etc/graylog/server/server.conf 
+    regexp: '.*password_secret =.*' 
+    replace: 'password_secret = {{graylog2_password_secret}}'
+
+- name: enalbe elasticsearch shrads
+  replace: 
+    dest: /etc/graylog/server/server.conf 
+    regexp: '.*elasticsearch_shards = .*' 
+    replace: 'elasticsearch_shards = 1'
+
+- name: set graylog cluster name
+  replace: 
+    dest: /etc/graylog/server/server.conf 
+    regexp: '.*elasticsearch_cluster_name =.*'
+    replace: 'elasticsearch_cluster_name = {{graylog2_cluster_name}}'
+
+- name: Set Graylog transport uri
+  replace:
+    dest: /etc/graylog/server/server.conf 
+    regexp: '.*rest_transport_uri = .*'
+    replace: 'rest_transport_uri = http://{{ansible_default_ipv4.address}}:12900'
+
+- name: Set Graylog rest listen uri
+  replace:
+    dest: /etc/graylog/server/server.conf 
+    regexp: '.*rest_listen_uri = .*' 
+    replace: 'rest_listen_uri = http://{{ansible_default_ipv4.address}}:12900'
+
+- name: Set Graylog2 web listen uri
+  lineinfile: 
+    dest: /etc/graylog/server/server.conf
+    line: 'web_listen_uri = http://{{ansible_default_ipv4.address}}:9000'
+
+- name: Configure Graylog web listen uri
+  replace: 
+    dest: /etc/graylog/server/server.conf 
+    regexp: '.*web_listen_uri = .*' 
+    replace: 'web_listen_uri = http://{{ansible_default_ipv4.address}}:9000'
+
+- name: Set root Timezone
+  replace: 
+    dest: /etc/graylog/server/server.conf 
+    regexp: '.*root_timezone = .*' 
+    replace: 'root_timezone = {{graylog2_root_timezone}}'
+
+- name: Configure Graylog root email
+  replace: 
+    dest: /etc/graylog/server/server.conf 
+    regexp: '.*root_email = .*' 
+    replace: 'root_email = {{graylog2_root_email}}'
+- name: Configure Graylog root email
+  replace: 
+    dest: /etc/graylog/server/server.conf 
+    regexp: '.*root_email = .*' 
+    replace: 'root_email = {{graylog2_root_email}}'
+
+- name: Configure Graylog web_enable_gzip
+  replace: 
+    dest: /etc/graylog/server/server.conf 
+    regexp: '.*web_enable_gzip = .*' 
+    replace: 'web_enable_gzip = true'
+
+- name: Configure Graylog allow_highlighting
+  replace: 
+    dest: /etc/graylog/server/server.conf 
+    regexp: '.*allow_highlighting = .*' 
+    replace: 'allow_highlighting = {{graylog2_allow_highlighting}}'
+
+- name: Configure Graylog transport_email_enabled
+  replace: 
+    dest: /etc/graylog/server/server.conf 
+    regexp: '.*transport_email_enabled = .*' 
+    replace: 'transport_email_enabled = {{graylog2_transport_email_enabled}}'
+
+- name: Configure Graylog transport_email_hostname
+  replace: 
+    dest: /etc/graylog/server/server.conf 
+    regexp: '.*transport_email_hostname = .*'
+    replace: 'transport_email_hostname = graylog2_transport_email_hostname'
+
+- name: Configure Graylog transport_email_port
+  replace: 
+    dest: /etc/graylog/server/server.conf 
+    regexp: '.*transport_email_port = .*' 
+    replace: 'transport_email_port = {{graylog2_transport_email_port}}'
+
+- name: Configure Graylog transport_email_use_auth
+  replace: 
+    dest: /etc/graylog/server/server.conf 
+    regexp: '.*transport_email_use_auth = .*' 
+    replace: 'transport_email_use_auth = {{graylog2_transport_email_use_auth}}'
+
+- name: Configure Graylog transport_email_use_tls
+  replace: 
+    dest: /etc/graylog/server/server.conf 
+    regexp: '.*transport_email_use_tls = .*' 
+    replace: 'transport_email_use_tls = {{graylog2_transport_email_use_tls}}'
+
+- name: Configure Graylog transport_email_use_ssl
+  replace: 
+    dest: /etc/graylog/server/server.conf 
+    regexp: '.*transport_email_use_ssl = .*'
+    replace: 'transport_email_use_ssl = {{graylog2_transport_email_use_ssl}}'
+
+- name: Configure Graylog transport_email_auth_username
+  replace: 
+    dest: /etc/graylog/server/server.conf 
+    regexp: '.*transport_email_auth_username = .*' 
+    replace: 'transport_email_auth_username = {{graylog2_transport_email_auth_username}}'
+
+- name: Configure Graylog transport_email_auth_password
+  replace: 
+    dest: /etc/graylog/server/server.conf 
+    regexp: '.*transport_email_auth_password = .*' 
+    replace: 'transport_email_auth_password = {{graylog2_transport_email_auth_password}}'
+
+- name: Configure Graylog transport_email_subject_prefix
+  replace: 
+    dest: /etc/graylog/server/server.conf 
+    regexp: '.*transport_email_subject_prefix = .*' 
+    replace: 'transport_email_subject_prefix = {{graylog2_transport_email_subject_prefix}}'
+
+- name: Configure Graylog transport_email_from_email
+  replace: 
+    dest: /etc/graylog/server/server.conf 
+    regexp: '.*transport_email_from_email = .*' 
+    replace: 'transport_email_from_email = {{graylog2_transport_email_from_email}}'
+
+- name: Configure Graylog transport_email_web_interface_url
+  replace: 
+    dest: /etc/graylog/server/server.conf 
+    regexp: '.*transport_email_web_interface_url = .*' 
+    replace: 'transport_email_web_interface_url = {{graylog2_transport_email_web_interface_url}}'
+
+- name: Configure Graylog dashboard_widget_default_cache_time
+  replace: 
+    dest: /etc/graylog/server/server.conf 
+    regexp: '.*dashboard_widget_default_cache_time = .*' 
+    replace: 'dashboard_widget_default_cache_time = {{graylog2_dashboard_widget_default_cache_time}}'
+
+- name: Enable and start Graylog2 server
+  service:
+    name: graylog-server
+    state: started
+    enabled: yes
+
+- name: check memory
+  debug: 
+    msg: "WARNING: Graylog Server VM should at least have 2GB of memory ! ! ! *****************************"
+  when: ansible_memtotal_mb < 2000
+
+- name: Register md5sum of /etc/graylog/server/server.conf
+  shell: md5sum /etc/graylog/server/server.conf
+  register: graylog2_conf_md5sum_after
+  changed_when: false
+
+- name: Restart graylog server if needed
+  service:
+    name: graylog-server
+    state: restarted
+  when: graylog2_conf_md5sum_before.stdout != graylog2_conf_md5sum_after.stdout
+...

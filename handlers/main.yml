@@ -1,0 +1,27 @@
+---
+- name: graylog started
+  service: name=graylog-server state=started
+
+- name: graylog stopped
+  service: name=graylog-server state=stopped
+
+- name: graylog restarted
+  service: name=graylog-server state=restarted
+
+- name: elasticsearch started
+  service: name=elasticsearch state=started
+
+- name: elasticsearch stopped
+  service: name=elasticsearch state=stopped
+
+- name: elasticsearch restarted
+  service: name=elasticsearch state=restarted
+
+- name: mongod started
+  service: name=mongod state=started
+
+- name: mongod stopped
+  service: name=mongod state=stopped
+
+- name: mongod restarted
+  service: name=mongod state=restarted

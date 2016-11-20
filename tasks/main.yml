@@ -1,0 +1,17 @@
+---
+# js.graylog2/tasks/main.yml
+
+# repo configuration
+- include: repos.yml
+
+# openjdk installation
+- include: java.yml
+
+# mongodb installation
+- include: mongodb.yml
+
+# elastic search installation and configuration
+- include: elasticsearch.yml
+
+# graylog installation and configuration
+- include: graylog.yml

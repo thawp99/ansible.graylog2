@@ -1,0 +1,41 @@
+---
+# file: test/playbook_graylog.yml
+- name: Install and configure Graylog Server v2
+  hosts: vm01
+  roles:
+    - role: js.graylog2
+      graylog2_admin_password: secret
+
+  tasks:
+  - name: Install firewalld
+    yum:
+      name: firewalld
+      state: installed
+
+  - name: Enable and start firewalld
+    service:
+      name: firewalld
+      state: started
+      enabled: yes
+
+  - name: Open Graylog Web Port
+    firewalld:
+      port: "9000/tcp"
+      state: enabled
+      immediate: True
+      permanent: true
+
+  - name: Open Graylog REST API Port
+    firewalld:
+      port: "12900/tcp"
+      state: enabled
+      immediate: True
+      permanent: true
+
+  - name: Open Syslog port 1514/udp
+    firewalld:
+      port: "1514/udp"
+      state: enabled
+      immediate: True
+      permanent: true
+

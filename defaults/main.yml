@@ -1,0 +1,35 @@
+---
+# js.graylog2/defaults/main.yml
+
+# --- GENERAL CONFIG ---
+graylog2_cluster_name: "graylog"
+graylog2_root_email: "graylogadmin@example.com"
+graylog2_admin_password: "graylog"
+graylog2_root_timezone: "Europe/Zurich"
+graylog2_allow_highlighting: true
+graylog2_dashboard_widget_default_cache_time: 60s
+
+
+graylog2_transport_email_enabled: false
+graylog2_transport_email_hostname: mail.example.com
+graylog2_transport_email_port: 587
+graylog2_transport_email_use_auth: true
+graylog2_transport_email_use_tls: true
+graylog2_transport_email_use_ssl: true
+graylog2_transport_email_auth_username: "you@example.com"
+graylog2_transport_email_auth_password:  secret
+graylog2_transport_email_subject_prefix: "[graylog]"
+graylog2_transport_email_from_email: "graylog@example.com"
+graylog2_transport_email_web_interface_url: "http://{{ansible_default_ipv4.address}}:9000"
+
+# generate: pwgen -s 96 1
+graylog2_password_secret: "AU43aOqqswYJJyQSICrF8UzpQ2D3Q9YY5pzA6Gw2oZIdQqoR2Fibr2GnTcwRuneVfejp4qzgAcHOv0Ode64dL9BkzptsLmGE"
+
+# --- REPO CONFIG ---
+graylog2_repo_graylog_rpm: https://packages.graylog2.org/repo/packages/graylog-2.2-repository_latest.rpm
+
+graylog2_repo_elasticsearch_url: https://packages.elastic.co/elasticsearch/2.x/centos
+graylog2_repo_elasticsearch_key: https://packages.elastic.co/GPG-KEY-elasticsearch
+
+graylog2_repo_mongodb_url: https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/3.2/$basearch/
+graylog2_repo_mongodb_key: https://www.mongodb.org/static/pgp/server-3.2.asc
