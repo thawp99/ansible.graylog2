@@ -44,6 +44,7 @@ The following variables can be overridden:
 ## Features
 * Automatic restart of graylog service if config file has changed
 
+## First Graylog Login:
 When you first login, define Inputs:
 System/Inputs > Inputs > Syslog UDP   
   "launch new input"   
