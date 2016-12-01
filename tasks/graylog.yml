@@ -1,8 +1,11 @@
 ---
-- name: Install graylog
+- name: Install graylog packages
   yum:
-    name: graylog-server
+    name: "{{item}}"
     state: installed
+  with_items:
+    - graylog-server
+    - pwgen
 
 - name: Register md5sum of /etc/graylog/server/server.conf
   shell: md5sum /etc/graylog/server/server.conf
@@ -26,11 +29,23 @@
     replace: 'root_password_sha2 = {{ graylog2_admin_password_sha.stdout }}'
   when: graylog2_admin_password_diff.stdout.find('root_password_sha2') != 0
 
+- name: generate password salt
+  shell: pwgen -s 96 1
+  register: graylog2_password_secret
+  changed_when: false
+
+- name: Check if password salt is present (check length)
+  shell: "grep 'password_secret =' /etc/graylog/server/server.conf | tail -1 | wc -c"
+  register: graylog2_password_secret_length
+  changed_when: false
+
 - name: Configure Graylog2 password salt
   replace: 
     dest: /etc/graylog/server/server.conf 
     regexp: '.*password_secret =.*' 
-    replace: 'password_secret = {{graylog2_password_secret}}'
+    replace: 'password_secret = {{graylog2_password_secret.stdout}}'
+  changed_when: false
+  when: graylog2_password_secret_length.stdout|int < 80
 
 - name: enalbe elasticsearch shrads
   replace: 

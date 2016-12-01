@@ -29,9 +29,6 @@ The following variables can be overridden:
 * `graylog2_transport_email_from_email`: Default: "graylog@example.com"
 * `graylog2_transport_email_web_interface_url`: Default: "http://{{ansible_default_ipv4.address}}:9000"
 
-* `graylog2_password_secret`: Default: "AU43aOqqswYJJyQSICrF8UzpQ2D3Q9YY5pzA6Gw2oZIdQqoR2Fibr2GnTcwRuneVfejp4qzgAcHOv0Ode64dL9BkzptsLmGE"   
-   generate: `pwgen -s 96 1`   
-
 * `graylog2_repo_graylog_rpm`: Default: https://packages.graylog2.org/repo/packages/graylog-2.2-repository_latest.rpm
 
 * `graylog2_repo_elasticsearch_url`: Default: https://packages.elastic.co/elasticsearch/2.x/centos
