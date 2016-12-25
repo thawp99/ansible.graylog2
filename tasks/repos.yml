@@ -18,7 +18,7 @@
     state: installed
   when: graylog_repo_query.stdout.find('graylog') != 0
 
-- name: Configure stable MongoDB repo
+- name: Configure Elasticsearch repo
   template: 
     src: elasticsearch.repo.j2
     dest: /etc/yum.repos.d/elasticsearch.repo
