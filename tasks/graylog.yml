@@ -47,7 +47,7 @@
   changed_when: false
   when: graylog2_password_secret_length.stdout|int < 80
 
-- name: enalbe elasticsearch shrads
+- name: enable elasticsearch shrads
   replace: 
     dest: /etc/graylog/server/server.conf 
     regexp: '.*elasticsearch_shards = .*' 
