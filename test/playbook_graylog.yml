@@ -3,7 +3,7 @@
 - name: Install and configure Graylog Server v2
   hosts: vm01
   roles:
-    - role: js.graylog2
+    - role: joe-speedboat.graylog2
       graylog2_admin_password: secret
 
   tasks:
@@ -18,19 +18,19 @@
       state: started
       enabled: yes
 
-  - name: Open Graylog Web Port
+  - name: Open Nginx Web Port
     firewalld:
-      port: "9000/tcp"
+      port: "443/tcp"
       state: enabled
       immediate: True
       permanent: true
 
-  - name: Open Graylog REST API Port
-    firewalld:
-      port: "12900/tcp"
-      state: enabled
-      immediate: True
-      permanent: true
+###  - name: Open Graylog REST API Port
+###    firewalld:
+###      port: "12900/tcp"
+###      state: enabled
+###      immediate: True
+###      permanent: true
 
   - name: Open Syslog port 1514/udp
     firewalld:

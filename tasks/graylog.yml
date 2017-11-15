@@ -59,28 +59,22 @@
     regexp: '.*elasticsearch_cluster_name =.*'
     replace: 'elasticsearch_cluster_name = {{graylog2_cluster_name}}'
 
-- name: Set Graylog transport uri
-  replace:
-    dest: /etc/graylog/server/server.conf 
-    regexp: '.*rest_transport_uri = .*'
-    replace: 'rest_transport_uri = http://{{ansible_default_ipv4.address}}:12900'
-
 - name: Set Graylog rest listen uri
   replace:
     dest: /etc/graylog/server/server.conf 
     regexp: '.*rest_listen_uri = .*' 
-    replace: 'rest_listen_uri = http://{{ansible_default_ipv4.address}}:12900'
+    replace: 'rest_listen_uri = http://127.0.0.1:9000/api'
 
 - name: Set Graylog2 web listen uri
   lineinfile: 
     dest: /etc/graylog/server/server.conf
-    line: 'web_listen_uri = http://{{ansible_default_ipv4.address}}:9000'
+    line: 'web_listen_uri = http://127.0.0.1:9000'
 
 - name: Configure Graylog web listen uri
   replace: 
     dest: /etc/graylog/server/server.conf 
     regexp: '.*web_listen_uri = .*' 
-    replace: 'web_listen_uri = http://{{ansible_default_ipv4.address}}:9000'
+    replace: 'web_listen_uri = http://127.0.0.1:9000'
 
 - name: Set root Timezone
   replace: 

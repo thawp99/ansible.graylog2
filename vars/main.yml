@@ -1,2 +1,6 @@
 ---
 # vars/main.yml from js.graylog2
+nginx_packages_EL:
+  - {package: "nginx"}
+  - {package: "openssl"}
+

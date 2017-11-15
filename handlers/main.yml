@@ -25,3 +25,7 @@
 
 - name: mongod restarted
   service: name=mongod state=restarted
+
+- name: restart nginx
+  service: name=nginx state=restarted
+
