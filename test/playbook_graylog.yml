@@ -25,13 +25,6 @@
       immediate: True
       permanent: true
 
-###  - name: Open Graylog REST API Port
-###    firewalld:
-###      port: "12900/tcp"
-###      state: enabled
-###      immediate: True
-###      permanent: true
-
   - name: Open Syslog port 1514/udp
     firewalld:
       port: "1514/udp"
