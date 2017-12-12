@@ -61,6 +61,6 @@ Now you can send syslog via UDP to Port 1514.
 
 
 # License
-https://opensource.org/licenses/GPL-3.0
+https://opensource.org/licenses/GPL-3.0    
 Copyright (c) Chris Ruettimann <chris@bitbull.ch>  
 
