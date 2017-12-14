@@ -1,0 +1,34 @@
+---
+# file: test/playbook_graylog.yml
+- name: Install and configure Graylog Server v2
+  hosts: vm06
+  roles:
+    - role: joe-speedboat.graylog2
+      graylog2_admin_password: secret
+
+  tasks:
+  - name: Install firewalld
+    yum:
+      name: firewalld
+      state: installed
+
+  - name: Enable and start firewalld
+    service:
+      name: firewalld
+      state: started
+      enabled: yes
+
+  - name: Open Nginx Web Port
+    firewalld:
+      port: "443/tcp"
+      state: enabled
+      immediate: True
+      permanent: true
+
+  - name: Open Syslog port 1514/udp
+    firewalld:
+      port: "1514/udp"
+      state: enabled
+      immediate: True
+      permanent: true
+
