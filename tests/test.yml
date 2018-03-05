@@ -1,6 +1,6 @@
 ---
 - name: Install and configure Graylog Server v2
-  hosts: vm06
+  hosts: all
   roles:
     - role: role_under_test
       graylog2_admin_password: secret
