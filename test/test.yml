@@ -1,9 +1,8 @@
 ---
-# file: test/playbook_graylog.yml
 - name: Install and configure Graylog Server v2
   hosts: vm06
   roles:
-    - role: joe-speedboat.graylog2
+    - role: role_under_test
       graylog2_admin_password: secret
 
   tasks:
