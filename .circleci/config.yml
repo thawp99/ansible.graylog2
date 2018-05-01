@@ -6,7 +6,7 @@ env:
 jobs:
   build:
     docker:
-      - image: 
+      - image: centos7
     steps:
       - checkout
       - run: wget -O ${PWD}/tests/test.sh https://gist.githubusercontent.com/geerlingguy/73ef1e5ee45d8694570f334be385e181/raw/
