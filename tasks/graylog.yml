@@ -1,11 +1,9 @@
 ---
 - name: Install graylog packages
   yum:
-    name: "{{item}}"
+    name: "{{ item }}"
     state: installed
-  with_items:
-    - graylog-server
-    - pwgen
+  with_items: "{{ packages_graylog_EL7 }}"
 
 - name: Register md5sum of /etc/graylog/server/server.conf
   shell: md5sum /etc/graylog/server/server.conf

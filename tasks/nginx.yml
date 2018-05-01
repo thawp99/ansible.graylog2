@@ -2,9 +2,9 @@
 
 - name: Install nginx packages
   yum:
-    name: '{{ item.package }}'
+    name: "{{ item }}"
     state: present
-  with_items: "{{ nginx_packages_EL }}"
+  with_items: "{{ packages_nginx_EL7 }}"
 
 - name: enable nginx
   service: 

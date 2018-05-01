@@ -1,6 +1,22 @@
 ---
-# vars/main.yml from js.graylog2
-nginx_packages_EL:
-  - {package: "nginx"}
-  - {package: "openssl"}
+# vars/main.yml from joe-speedboat.graylog2
+
+packages_graylog_EL7:
+  - graylog-server
+  - pwgen
+
+packages_nginx_EL7:
+  - nginx
+  - openssl
+
+packages_elasticsearch_EL7:
+  - elasticsearch
+
+packages_java_EL7:
+  - java-1.8.0-openjdk-headless
+
+packages_mongodb_EL7:
+  - libselinux-python
+  - mongodb-org
+
 

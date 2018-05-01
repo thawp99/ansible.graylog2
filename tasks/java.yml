@@ -1,6 +1,7 @@
 ---
 - name: Install Open JDK
   yum:
-    name: java-1.8.0-openjdk
+    name: "{{ item }}"
     state: installed
+  with_items: "{{ packages_java_EL7 }}"
 ...

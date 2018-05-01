@@ -1,8 +1,9 @@
 ---
 - name: Install MongoDB
   yum:
-    name: mongodb-org
+    name: "{{ item }}"
     state: installed
+  with_items: "{{ packages_mongodb_EL7 }}"
 
 - name: Enable and start mongod
   service:
