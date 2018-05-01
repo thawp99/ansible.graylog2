@@ -9,7 +9,7 @@ jobs:
       - image: geerlingguy/docker-centos7-ansible
     steps:
       - checkout
-      - run: wget -O ${PWD}/tests/test.sh https://gist.githubusercontent.com/geerlingguy/73ef1e5ee45d8694570f334be385e181/raw/
+      - run: curl https://gist.githubusercontent.com/geerlingguy/73ef1e5ee45d8694570f334be385e181/raw/ > ${PWD}/tests/test.sh
       - run: chmod +x ${PWD}/tests/test.sh
       - run: ${PWD}/tests/test.sh
 
