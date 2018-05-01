@@ -1,17 +1,15 @@
 ---
 version: 2
 
-env:
-  - distro: centos7
 jobs:
   build:
     docker:
-      - image: geerlingguy/docker-centos7-ansible
+      - image: circleci/ubuntu-server
     steps:
       - checkout
-      - run: curl https://gist.githubusercontent.com/geerlingguy/73ef1e5ee45d8694570f334be385e181/raw/ > ${PWD}/tests/test.sh
-      - run: chmod +x ${PWD}/tests/test.sh
-      - run: ${PWD}/tests/test.sh
-
-
-
+      - run:
+          name: Test CentOS7 role
+          command: |
+            wget -O ${PWD}/tests/test.sh https://gist.githubusercontent.com/geerlingguy/73ef1e5ee45d8694570f334be385e181/raw/
+            chmod +x ${PWD}/tests/test.sh
+            ${PWD}/tests/test.sh
