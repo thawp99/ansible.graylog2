@@ -1,5 +1,5 @@
 ---
-# vars/main.yml from joe-speedboat.graylog2
+# vars/main.yml from joe_speedboat.graylog2
 
 packages_graylog_EL7:
   - graylog-server
