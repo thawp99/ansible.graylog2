@@ -3,7 +3,7 @@
 - name: Install and configure Graylog Server v2
   hosts: vm06
   roles:
-    - role: joe_speedboat.graylog2
+    - role: joe_speedboat.ansible_graylog2
       graylog2_admin_password: secret
 
   tasks:
